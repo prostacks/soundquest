@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Main from "./pages/main/main";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import SingingMode from "./pages/SingingMode/SingingMode";
+import LyricsMode from "./pages/LyricsMode/LyricsMode";
+import QuestMode from "./pages/QuestMode/QuestMode";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+    };
+
+    this.constraints = {
+      audio: true,
+      video: false,
+    };
+  }
+
+  // loadStream = () => {
+  //   let promise = navigator.mediaDevices.getUserMedia(this.constraints);
+  //   return promise;
+  // };
+  render() {
+    return (
+      <Router>
+        <div className='App'>
+          <Route exact path='/' component={Main} />
+          <Route exact path='/SingingMode/' component={SingingMode} />
+          <Route exact path='/LyricsMode/' component={LyricsMode} />
+          <Route exact path='/QuestMode/' component={QuestMode} />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

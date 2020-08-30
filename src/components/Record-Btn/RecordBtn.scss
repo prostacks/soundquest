@@ -1,0 +1,29 @@
+.record-btn {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  margin-top: 5rem;
+  text-align: center;
+  line-height: 8rem;
+  cursor: pointer;
+  &.pulse {
+    animation: pulse 1500ms infinite;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 10px #dc3546a8;
+    }
+
+    40% {
+      transform: scale(1);
+      box-shadow: 0 0 0 50px #dc354600;
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 10px #dc3546a8;
+    }
+  }
+}

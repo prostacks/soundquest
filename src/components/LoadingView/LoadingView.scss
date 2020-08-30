@@ -1,0 +1,60 @@
+.spinner-border {
+  height: 8rem;
+  width: 8rem;
+  border-width: 1rem;
+  border-top-color: #1fa2ff;
+  border-right-color: #12d8fa;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.card {
+  box-shadow: 4px 4px 4px #222;
+  border: none;
+  .card-body {
+    background-color: #7f5516;
+  }
+  .song {
+    color: #ffe2aa;
+  }
+  .artist {
+    color: #f8e0bd;
+  }
+  .album {
+    color: #e5c58c;
+  }
+}
+
+.preview {
+  display: block;
+}
+
+audio:focus {
+  outline: none;
+}
+audio {
+  margin: 0 auto;
+}
+
+.musicLogos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  a {
+    padding: 0;
+    margin: 1.5rem 0;
+    width: 10rem;
+  }
+  .spotify-bg {
+    background-color: #191414;
+    padding: 0.2rem 0;
+    border-radius: 10px;
+    border: solid 1px #aaa;
+  }
+}
+
+.emoji {
+  font-size: 12rem;
+}

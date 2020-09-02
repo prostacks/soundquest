@@ -6,7 +6,7 @@ const Modal = (props) => (
   <div className='main d-flex flex-column align-items-center mt-4'>
     <button
       type='button'
-      className='btn btn-dark btn-lg shadow-none'
+      className='btn btn-dark btn-lg modeBtn shadow-none'
       data-toggle='modal'
       data-target='#modelId'
     >
@@ -59,7 +59,14 @@ const Modal = (props) => (
               <i className='fas fa-microphone-alt fa-4x text-secondary text-center pb-2'></i>
               <button
                 className='btn btn-secondary btn-block'
-                onClick={() => props.history.push("/SingingMode/")}
+                onClick={() => {
+                  if (
+                    props.location.pathname.toLowerCase() === "/singingmode/"
+                  ) {
+                    return;
+                  }
+                  props.history.push("/SingingMode/");
+                }}
                 data-dismiss='modal'
               >
                 Singing Mode

@@ -6,7 +6,7 @@ import "../LoadingView/LoadingView.scss";
 export default function ListenResults(props) {
   return (
     <div className='results d-none container text-center col-md-6 mx-auto'>
-      <div className='card w-75 mx-auto mt-5'>
+      <div className='card album-card w-75 mx-auto mt-5'>
         <img
           src='https://i.scdn.co/image/d3acaeb069f37d8e257221f7224c813c5fa6024e'
           alt=''
@@ -62,9 +62,7 @@ export default function ListenResults(props) {
       <button
         className='btn btn-primary shadow-nome text-center mt-3'
         onClick={() => {
-          props.changeText(
-            "Press & hold the record button between 5 and 10 seconds for optimal results"
-          );
+          props.changeText(props.normal);
           document.querySelector(".mainText").classList.remove("fade");
           props.showLoadingView();
           document.querySelector(".results").classList.add("d-none");

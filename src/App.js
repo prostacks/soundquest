@@ -7,22 +7,6 @@ import LyricsMode from "./pages/LyricsMode/LyricsMode";
 import QuestMode from "./pages/QuestMode/QuestMode";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: {},
-    };
-
-    this.constraints = {
-      audio: true,
-      video: false,
-    };
-  }
-
-  // loadStream = () => {
-  //   let promise = navigator.mediaDevices.getUserMedia(this.constraints);
-  //   return promise;
-  // };
   render() {
     return (
       <Router>

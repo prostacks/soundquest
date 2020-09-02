@@ -12,14 +12,13 @@ export default function FailureView(props) {
       <button
         className='btn btn-danger shadow-nome text-center mt-3'
         onClick={() => {
-          props.changeText(
-            "Press & hold the record button between 5 and 10 seconds for optimal results"
-          );
+          props.changeText(props.normal);
           document.querySelector(".mainText").classList.remove("fade");
           props.showLoadingView();
           document.querySelector(".results").classList.add("d-none");
           document.querySelector(".failureView").classList.add("d-none");
           document.getElementById("audioPlayer").pause();
+          props.changeState();
         }}
       >
         Try Again

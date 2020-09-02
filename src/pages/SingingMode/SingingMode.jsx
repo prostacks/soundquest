@@ -15,16 +15,26 @@ class SingingMode extends Component {
         fetching: "Indentifying audio data...",
       },
       mode: "",
+      stage: "",
     };
   }
-  changeText = () => {
-    let helpText = document.querySelector(".helpText");
-    helpText.textContent = "Listening...";
-    helpText.classList.add("fade");
+  changeText = (stateString) => {
+    document.querySelectorAll(".helpText").forEach((text) => {
+      text.textContent = stateString;
+      text.classList.add("fade");
+    });
+  };
+
+  hideModal = () => {
+    document.querySelector(".modeBtn").classList.add("d-none");
   };
 
   handleData = (data) => {
-    return this.setState({ info: data, mode: "singing" });
+    return this.setState({ info: data, mode: "singing", stage: "loading" });
+  };
+
+  changeState = () => {
+    return this.setState({ stage: "normal" });
   };
 
   showLoadingView = () => {
@@ -39,6 +49,7 @@ class SingingMode extends Component {
             S<i className='far fa-play-circle'></i>undQuest
           </h1>
         </header>
+        {/* TEMP DISPLAY */}
         <div className='wrapper'>
           <h2 className='text-light text-center'>
             <i className='fas fa-microphone-alt'></i> Singing Mode
@@ -46,14 +57,23 @@ class SingingMode extends Component {
           <RecordBtn
             changeText={this.changeText}
             handleData={this.handleData}
+            recording={this.state.text.recording}
+            hideModal={this.hideModal}
           />
-          <span className='d-block text-center text-light mt-5 helpText'></span>
+          <span className='d-block text-center text-light mt-5 helpText mainText'>
+            {this.state.text.normal}
+          </span>
         </div>
         <LoadingView
           data={this.state.info}
           mode={this.state.mode}
+          stage={this.state.stage}
           showLoadingView={this.showLoadingView}
           changeText={this.changeText}
+          fetching={this.state.text.fetching}
+          normal={this.state.text.normal}
+          changeState={this.changeState}
+          hideModal={this.hideModal}
         />
       </div>
     );

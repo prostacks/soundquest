@@ -4,6 +4,7 @@ import Modal from "../modal/modal";
 import ListenResults from "../ResultsViews/ListenResults";
 import CoverArt from "../../coverart_1.png";
 import FailureView from "../FailureView/FailureView";
+import SingingResults from "../ResultsViews/SingingResults";
 
 const lodingMsgs = [
   "We're cooking something up",
@@ -24,54 +25,78 @@ const failureMsgs = [
   "Errors...they're everywhere!",
 ];
 
-//Elements
-
 class LoadingView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imgURLs: [],
+      data: [],
+      stage: "",
+      joinedData: [],
+    };
+  }
+
   componentDidUpdate() {
-    this.props.showLoadingView();
-    document.querySelector(".loadingHeader").textContent = this.randomMsg(
-      lodingMsgs
-    );
-    document.querySelector(".loadingView").classList.remove("d-none");
-    this.props.changeText("Indentifying audio data...");
-    document.querySelector(".secText").classList.add("fade");
-    document.querySelector(".main").classList.add("d-none");
-    this.fetchData(this.props.data);
+    if (this.props.stage === "loading") {
+      this.props.showLoadingView();
+      document.querySelector(".loadingHeader").textContent = this.randomMsg(
+        lodingMsgs
+      );
+      document.querySelector(".loadingView").classList.remove("d-none");
+      this.props.changeText(this.props.fetching);
+      document.querySelector(".secText").classList.add("fade");
+      this.gatherData(this.props.data);
+      this.props.changeState();
+    }
   }
 
   randomMsg = (arr) => {
     return arr[Math.round(Math.random() * (lodingMsgs.length - 1))];
   };
 
-  fetchData = (data) => {
+  gatherData = (data) => {
     const formData = new FormData();
     let key = "0251e1d511f58db75fa4b8642a65b65a";
-    formData.append("file", data);
-    formData.append("return", "apple_music,spotify");
     formData.append("api_token", key);
 
+    if (this.props.mode === "listen") {
+      formData.append("file", data);
+      formData.append("return", "apple_music,spotify");
+      let url = "https://api.audd.io/";
+      this.fetchData(formData, url, this.mapDataListen);
+    } else if (this.props.mode === "singing") {
+      formData.append("file", data);
+      let url = "https://api.audd.io/recognizeWithOffset/";
+      this.fetchData(formData, url, this.mapDataSinging);
+    }
+  };
+
+  fetchData = (data, url, callback) => {
     let options = {
       method: "POST",
-      body: formData,
+      body: data,
       redirect: "follow",
       mode: "cors",
     };
 
-    fetch("https://api.audd.io/", options)
+    fetch(url, options)
       .then((response) => {
         return response.json();
       })
       .then((result) => {
         setTimeout(() => {
           document.querySelector(".loadingView").classList.add("d-none");
+          document.querySelector(".modeBtn").classList.remove("d-none");
           console.log("done");
-          this.mapData(result.result);
+          callback(result.result);
         }, 3000);
       })
       .catch((err) => {
         setTimeout(() => {
           document.querySelector(".loadingView").classList.add("d-none");
           const failureMsg = document.querySelector(".failureMsg");
+          document.querySelector(".modeBtn").classList.remove("d-none");
           const failuerView = document.querySelector(".failureView");
           console.log("Something went wrong:", err.message);
           failureMsg.textContent = this.randomMsg(failureMsgs);
@@ -81,7 +106,11 @@ class LoadingView extends Component {
       });
   };
 
-  mapData = (result) => {
+  changeState = () => {
+    this.setState({ imgURLs: [], data: [] });
+  };
+
+  mapDataListen = (result) => {
     console.log(result);
     const coverArt = document.querySelector(".cover-art");
     const song = document.querySelector(".song");
@@ -142,7 +171,62 @@ class LoadingView extends Component {
     otherLink.setAttribute("href", result.song_link);
   };
 
+  fetchCoverArt = (artist, title, listItem) => {
+    let key = "0410f71d8ac85faf3bbd6d1a58970aaa";
+    let newArtist = artist.replace(/ /g, "%20");
+    let newTitle = title.replace(/ /g, "%20");
+
+    let request = `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${key}&artist=${newArtist}&track=${newTitle}&format=json`;
+
+    fetch(request)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        let joinedData = this.state.imgURLs.concat(
+          result.track.album.image[3]["#text"]
+        );
+
+        this.setState({
+          imgURLs: joinedData,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  mapDataSinging = (result) => {
+    // coverArtArray = [];
+    const failureMsg = document.querySelector(".failureMsg");
+    const failuerView = document.querySelector(".failureView");
+    console.log(result);
+    if (!result || result === "null") {
+      failureMsg.textContent = this.randomMsg(failureMsgs);
+      failuerView.classList.remove("d-none");
+      return;
+    }
+
+    result.list.forEach((listItem) => {
+      this.fetchCoverArt(listItem.artist, listItem.title, listItem);
+    });
+
+    this.setState({
+      data: result.list,
+    });
+
+    document.querySelector(".singingResults").classList.remove("d-none");
+  };
+
+  showFailure = () => {
+    const failureMsg = document.querySelector(".failureMsg");
+    const failuerView = document.querySelector(".failureView");
+    failureMsg.textContent = this.randomMsg(failureMsgs);
+    failuerView.classList.remove("d-none");
+  };
+
   render() {
+    // console.log(this.state.imgURLs, "<=== render state");
     return (
       <div className='wrapper2'>
         <div className='loadingView text-center d-none'>
@@ -155,10 +239,24 @@ class LoadingView extends Component {
         <ListenResults
           changeText={this.props.changeText}
           showLoadingView={this.props.showLoadingView}
+          normal={this.props.normal}
+        />
+        <SingingResults
+          changeText={this.props.changeText}
+          showLoadingView={this.props.showLoadingView}
+          normal={this.props.normal}
+          imgURLs={this.state.imgURLs}
+          data={this.state.data}
+          stage={this.state.stage}
+          changeState={this.changeState}
+          randomMsg={this.randomMsg}
+          showFailure={this.showFailure}
         />
         <FailureView
           changeText={this.props.changeText}
           showLoadingView={this.props.showLoadingView}
+          normal={this.props.normal}
+          changeState={this.changeState}
         />
         <Modal />
       </div>

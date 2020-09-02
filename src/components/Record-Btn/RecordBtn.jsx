@@ -16,7 +16,8 @@ const RecordBtn = (props) => {
       recorder.start();
       console.log("recording...");
       e.target.classList.add("pulse");
-      props.changeText("Listening for music...");
+      props.changeText(props.recording);
+      props.hideModal();
     };
 
     const stop = (e) => {

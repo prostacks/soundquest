@@ -14,8 +14,14 @@ class Main extends Component {
         recording: "Listening for music...",
         fetching: "Indentifying audio data...",
       },
+      mode: "",
+      stage: "",
     };
   }
+
+  changeState = () => {
+    return this.setState({ stage: "normal" });
+  };
 
   changeText = (stateString) => {
     document.querySelectorAll(".helpText").forEach((text) => {
@@ -24,8 +30,12 @@ class Main extends Component {
     });
   };
 
+  hideModal = () => {
+    document.querySelector(".modeBtn").classList.add("d-none");
+  };
+
   handleData = (data) => {
-    return this.setState({ info: data });
+    return this.setState({ info: data, mode: "listen", stage: "loading" });
   };
 
   showLoadingView = () => {
@@ -48,6 +58,8 @@ class Main extends Component {
           <RecordBtn
             handleData={this.handleData}
             changeText={this.changeText}
+            recording={this.state.text.recording}
+            hideModal={this.hideModal}
           />
           <span className='d-block text-center text-light mt-5 helpText mainText'>
             {text.normal}
@@ -57,6 +69,12 @@ class Main extends Component {
           data={this.state.info}
           showLoadingView={this.showLoadingView}
           changeText={this.changeText}
+          mode={this.state.mode}
+          fetching={this.state.text.fetching}
+          normal={this.state.text.normal}
+          stage={this.state.stage}
+          hideModal={this.hideModal}
+          changeState={this.changeState}
         />
       </div>
     );

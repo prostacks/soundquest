@@ -49,7 +49,6 @@ class SingingMode extends Component {
             S<i className='far fa-play-circle'></i>undQuest
           </h1>
         </header>
-        {/* TEMP DISPLAY */}
         <div className='wrapper'>
           <h2 className='text-light text-center'>
             <i className='fas fa-microphone-alt'></i> Singing Mode

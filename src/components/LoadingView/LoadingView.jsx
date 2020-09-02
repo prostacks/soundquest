@@ -30,10 +30,8 @@ class LoadingView extends Component {
     super(props);
 
     this.state = {
-      imgURLs: [],
       data: [],
       stage: "",
-      joinedData: [],
     };
   }
 
@@ -69,6 +67,10 @@ class LoadingView extends Component {
       formData.append("file", data);
       let url = "https://api.audd.io/recognizeWithOffset/";
       this.fetchData(formData, url, this.mapDataSinging);
+    } else {
+      formData.append("q", data);
+      let url = "https://api.audd.io/findLyrics/";
+      this.fetchData(formData, url, this.mapDataLyrics);
     }
   };
 
@@ -107,7 +109,7 @@ class LoadingView extends Component {
   };
 
   changeState = () => {
-    this.setState({ imgURLs: [], data: [] });
+    this.setState({ data: [] });
   };
 
   mapDataListen = (result) => {
@@ -171,33 +173,7 @@ class LoadingView extends Component {
     otherLink.setAttribute("href", result.song_link);
   };
 
-  fetchCoverArt = (artist, title, listItem) => {
-    let key = "0410f71d8ac85faf3bbd6d1a58970aaa";
-    let newArtist = artist.replace(/ /g, "%20");
-    let newTitle = title.replace(/ /g, "%20");
-
-    let request = `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${key}&artist=${newArtist}&track=${newTitle}&format=json`;
-
-    fetch(request)
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        let joinedData = this.state.imgURLs.concat(
-          result.track.album.image[3]["#text"]
-        );
-
-        this.setState({
-          imgURLs: joinedData,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
   mapDataSinging = (result) => {
-    // coverArtArray = [];
     const failureMsg = document.querySelector(".failureMsg");
     const failuerView = document.querySelector(".failureView");
     console.log(result);
@@ -211,11 +187,58 @@ class LoadingView extends Component {
       this.fetchCoverArt(listItem.artist, listItem.title, listItem);
     });
 
-    this.setState({
-      data: result.list,
-    });
-
     document.querySelector(".singingResults").classList.remove("d-none");
+  };
+
+  fetchCoverArt = (artist, title, listItem) => {
+    let key = "0410f71d8ac85faf3bbd6d1a58970aaa";
+    let newArtist = artist.replace(/ /g, "%20");
+    let newTitle = title.replace(/ /g, "%20");
+
+    let request = `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${key}&artist=${newArtist}&track=${newTitle}&format=json`;
+
+    fetch(request)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        let joinedData;
+        joinedData = this.state.data.concat([
+          {
+            image: result.track.album.image[3]["#text"],
+            score: listItem.score,
+            artist: artist,
+            title: title,
+          },
+        ]);
+
+        this.setState({ data: joinedData });
+      })
+      .catch((err) => {
+        console.log("cover art fetch problem ===>", err.message);
+        let joinedData;
+        joinedData = this.state.data.concat([
+          {
+            image: "empty",
+            score: listItem.score,
+            artist: artist,
+            title: title,
+          },
+        ]);
+        this.setState({ data: joinedData });
+      });
+  };
+
+  mapDataLyrics = (result) => {
+    const failureMsg = document.querySelector(".failureMsg");
+    const failuerView = document.querySelector(".failureView");
+    if (!result || result === "null") {
+      failureMsg.textContent = this.randomMsg(failureMsgs);
+      failuerView.classList.remove("d-none");
+      return;
+    }
+
+    console.log(result);
   };
 
   showFailure = () => {
@@ -245,7 +268,6 @@ class LoadingView extends Component {
           changeText={this.props.changeText}
           showLoadingView={this.props.showLoadingView}
           normal={this.props.normal}
-          imgURLs={this.state.imgURLs}
           data={this.state.data}
           stage={this.state.stage}
           changeState={this.changeState}

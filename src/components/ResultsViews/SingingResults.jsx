@@ -18,12 +18,6 @@ const sucessMsgs = [
 ];
 
 class SingingResults extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: "",
-    };
-  }
   componentDidUpdate() {
     if (document.querySelector(".carousel-item")) {
       document.querySelector(".carousel-item").classList.add("active");
@@ -58,13 +52,16 @@ class SingingResults extends React.Component {
           <div className='carousel-inner' role='listbox'>
             {this.props.data.map((item, index) => {
               let image = () => {
-                if (this.props.imgURLs[index] === undefined) {
+                if (
+                  item.image === "empty" ||
+                  item.image === undefined ||
+                  item.image === ""
+                ) {
                   return CoverArt;
                 } else {
-                  return this.props.imgURLs[index];
+                  return item.image;
                 }
               };
-              //   let sum = this.props.data.length;
 
               return (
                 <div key={index} className='carousel-item'>

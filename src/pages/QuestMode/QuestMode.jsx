@@ -1,9 +1,53 @@
 import React, { Component } from "react";
 import "../main/main.scss";
-import Modal from "../../components/modal/modal";
 import QuestForm from "../../components/QuestForm/QuestForm";
+import LoadingView from "../../components/LoadingView/LoadingView";
 
 class QuestMode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: {},
+      text: {
+        fetching: "Searching database for matching songs...",
+      },
+      mode: "",
+      stage: "",
+    };
+  }
+
+  showAlert() {
+    let alert = document.querySelector(".alert");
+    alert.classList.replace("fade", "show");
+
+    setTimeout(() => {
+      alert.classList.replace("show", "fade");
+    }, 3000);
+  }
+
+  showLoadingView = () => {
+    document.querySelector(".wrapper").classList.toggle("d-none");
+  };
+
+  handleData = (data) => {
+    return this.setState({ info: data, mode: "quest", stage: "loading" });
+  };
+
+  changeText = (stateString) => {
+    document.querySelectorAll(".helpText").forEach((text) => {
+      text.textContent = stateString;
+      text.classList.add("fade");
+    });
+  };
+
+  hideModal = () => {
+    document.querySelector(".modeBtn").classList.add("d-none");
+  };
+
+  changeState = () => {
+    return this.setState({ stage: "normal" });
+  };
+
   render() {
     return (
       <div className='bg-gradient questMode'>
@@ -17,9 +61,21 @@ class QuestMode extends Component {
             <h2 className='text-success text-center'>
               <i className='fas fa-search'></i> Quest Mode
             </h2>
-            <QuestForm />
-            <Modal />
+            <QuestForm
+              handleData={this.handleData}
+              showAlert={this.showAlert}
+            />
           </div>
+          <LoadingView
+            data={this.state.info}
+            mode={this.state.mode}
+            stage={this.state.stage}
+            showLoadingView={this.showLoadingView}
+            changeText={this.changeText}
+            fetching={this.state.text.fetching}
+            changeState={this.changeState}
+            hideModal={this.hideModal}
+          />
         </div>
       </div>
     );

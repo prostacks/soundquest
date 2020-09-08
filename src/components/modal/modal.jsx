@@ -24,17 +24,19 @@ const Modal = (props) => (
       <div className='modal-dialog' role='document'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <h5 className='modal-title'>Choose Your Mode</h5>
+            <h5 className='modal-title text-light'>Choose Your Mode</h5>
             <button
               type='button'
               className='close'
               data-dismiss='modal'
               aria-label='Close'
             >
-              <span aria-hidden='true'>&times;</span>
+              <span className='text-light' aria-hidden='true'>
+                &times;
+              </span>
             </button>
           </div>
-          <div className='modal-body'>
+          <div className='modal-body text-light'>
             <div className='btngroups d-flex flex-column'>
               <i className='fas fa-assistive-listening-systems fa-4x text-info text-center pb-2'></i>
               <button
@@ -52,7 +54,7 @@ const Modal = (props) => (
               <span>
                 SoundQuest will listen for music around you and identify the
                 song info within seconds
-                <span className='font-weight-bold'>**</span>
+                <span className='font-weight-bold text-danger'>**</span>
               </span>
             </div>
             <div className='btngroups d-flex flex-column'>
@@ -72,8 +74,9 @@ const Modal = (props) => (
                 Singing Mode
               </button>
               <span>
-                Sing or hum the song out and we'll show you up to 5 possible
-                song matches<span className='font-weight-bold'>**</span>
+                Sing or hum the song out and we'll show you up to 10 possible
+                song matches
+                <span className='font-weight-bold text-danger'>**</span>
               </span>
             </div>
             <div className='btngroups d-flex flex-column'>
@@ -91,7 +94,7 @@ const Modal = (props) => (
               </button>
               <span>
                 Only know the words? Type in some lyrics and we'll return up to
-                5 possible song matches
+                10 possible song matches
               </span>
             </div>
             <div className='btngroups d-flex flex-column'>
@@ -109,7 +112,7 @@ const Modal = (props) => (
               </span>
             </div>
             <br />
-            <span className='font-italic font-weight-bold'>
+            <span className='font-italic text-danger'>
               **Microphone access required
             </span>
           </div>

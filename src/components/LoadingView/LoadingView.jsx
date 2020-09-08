@@ -4,7 +4,7 @@ import Modal from "../modal/modal";
 import ListenResults from "../ResultsViews/ListenResults";
 import CoverArt from "../../coverart_1.png";
 import FailureView from "../FailureView/FailureView";
-import SingingResults from "../ResultsViews/SingingResults";
+import Results from "../ResultsViews/Results";
 
 const lodingMsgs = [
   "We're cooking something up",
@@ -12,7 +12,7 @@ const lodingMsgs = [
   "We're testing your patience",
   "We promise it'll be worth the wait",
   "Searching for stuff...",
-  "Oh sorry, you're still here?",
+  "Trust the Process",
 ];
 
 const failureMsgs = [
@@ -24,6 +24,20 @@ const failureMsgs = [
   "We we're bug free until now",
   "Errors...they're everywhere!",
 ];
+const colorSets = [
+  { cardBg: "#9DB4AB", title: "#FDFFFC", artist: "#4C2E05" },
+  { cardBg: "#235789", title: "#F5F9E9", artist: "#C2C1A5" },
+  { cardBg: "#484041", title: "#E8CCBF", artist: "#79AEA3" },
+  { cardBg: "#0D1321", title: "#CAE5FF", artist: "#7A6F9B" },
+  { cardBg: "#725752", title: "#F5F3BB", artist: "#FFFFFF" },
+  { cardBg: "#111111", title: "#FBFBF8", artist: "#696773" },
+  { cardBg: "#54494B", title: "#91C7B1", artist: "#F1F7ED" },
+  { cardBg: "#D8D2E1", title: "#A5243D", artist: "#6369D1" },
+  { cardBg: "#E5B181", title: "#DE6B48", artist: "#F4B9B2" },
+  { cardBg: "#033860", title: "#FFFFFF", artist: "#087CA7" },
+];
+
+let id = 0;
 
 class LoadingView extends Component {
   constructor(props) {
@@ -75,6 +89,8 @@ class LoadingView extends Component {
   };
 
   fetchData = (data, url, callback) => {
+    id = 0;
+
     let options = {
       method: "POST",
       body: data,
@@ -182,12 +198,11 @@ class LoadingView extends Component {
       failuerView.classList.remove("d-none");
       return;
     }
-
     result.list.forEach((listItem) => {
       this.fetchCoverArt(listItem.artist, listItem.title, listItem);
     });
 
-    document.querySelector(".singingResults").classList.remove("d-none");
+    document.querySelector(".altResults").classList.remove("d-none");
   };
 
   fetchCoverArt = (artist, title, listItem) => {
@@ -202,29 +217,73 @@ class LoadingView extends Component {
         return response.json();
       })
       .then((result) => {
+        let colorGroup = this.randomMsg(colorSets);
         let joinedData;
-        joinedData = this.state.data.concat([
-          {
-            image: result.track.album.image[3]["#text"],
-            score: listItem.score,
-            artist: artist,
-            title: title,
-          },
-        ]);
+        id += 1;
+
+        if (this.props.mode === "lyrics" || this.props.mode === "quest") {
+          joinedData = this.state.data.concat([
+            {
+              image: result.track.album.image[3]["#text"],
+              artist: artist,
+              title: title,
+              cardBg: colorGroup.cardBg,
+              titleColor: colorGroup.title,
+              artistColor: colorGroup.artist,
+              media: JSON.parse(listItem.media),
+              lyrics: listItem.lyrics,
+              id: `item-${id}`,
+            },
+          ]);
+        } else {
+          joinedData = this.state.data.concat([
+            {
+              image: result.track.album.image[3]["#text"],
+              score: listItem.score,
+              artist: artist,
+              title: title,
+              cardBg: colorGroup.cardBg,
+              titleColor: colorGroup.title,
+              artistColor: colorGroup.artist,
+              id: `item-${id}`,
+            },
+          ]);
+        }
 
         this.setState({ data: joinedData });
       })
       .catch((err) => {
         console.log("cover art fetch problem ===>", err.message);
+        let colorGroup = this.randomMsg(colorSets);
         let joinedData;
-        joinedData = this.state.data.concat([
-          {
-            image: "empty",
-            score: listItem.score,
-            artist: artist,
-            title: title,
-          },
-        ]);
+        if (this.props.mode === "lyrics" || this.props.mode === "quest") {
+          joinedData = this.state.data.concat([
+            {
+              image: "empty",
+              artist: artist,
+              title: title,
+              cardBg: colorGroup.cardBg,
+              titleColor: colorGroup.title,
+              artistColor: colorGroup.artist,
+              media: JSON.parse(listItem.media),
+              lyrics: listItem.lyrics,
+              id: `item-${id}`,
+            },
+          ]);
+        } else {
+          joinedData = this.state.data.concat([
+            {
+              image: "empty",
+              score: listItem.score,
+              artist: artist,
+              title: title,
+              cardBg: colorGroup.cardBg,
+              titleColor: colorGroup.title,
+              artistColor: colorGroup.artist,
+              id: `item-${id}`,
+            },
+          ]);
+        }
         this.setState({ data: joinedData });
       });
   };
@@ -238,7 +297,11 @@ class LoadingView extends Component {
       return;
     }
 
-    console.log(result);
+    result.forEach((item) => {
+      this.fetchCoverArt(item.artist, item.title, item);
+    });
+
+    document.querySelector(".altResults").classList.remove("d-none");
   };
 
   showFailure = () => {
@@ -248,8 +311,22 @@ class LoadingView extends Component {
     failuerView.classList.remove("d-none");
   };
 
+  resetMedia = () => {
+    const iframes = document.querySelectorAll(".iframe");
+    const musicLinks = document.querySelectorAll(".altLinks");
+    const lyricsBoxes = document.querySelectorAll(".lyricsBox");
+    iframes.forEach((iframe) => {
+      iframe.style.display = "none";
+    });
+    musicLinks.forEach((link) => {
+      link.style.display = "none";
+    });
+    lyricsBoxes.forEach((box) => {
+      box.classList.add("d-none");
+    });
+  };
+
   render() {
-    // console.log(this.state.imgURLs, "<=== render state");
     return (
       <div className='wrapper2'>
         <div className='loadingView text-center d-none'>
@@ -264,7 +341,7 @@ class LoadingView extends Component {
           showLoadingView={this.props.showLoadingView}
           normal={this.props.normal}
         />
-        <SingingResults
+        <Results
           changeText={this.props.changeText}
           showLoadingView={this.props.showLoadingView}
           normal={this.props.normal}
@@ -273,12 +350,16 @@ class LoadingView extends Component {
           changeState={this.changeState}
           randomMsg={this.randomMsg}
           showFailure={this.showFailure}
+          mode={this.props.mode}
+          resetMedia={this.resetMedia}
         />
         <FailureView
           changeText={this.props.changeText}
           showLoadingView={this.props.showLoadingView}
           normal={this.props.normal}
           changeState={this.changeState}
+          mode={this.props.mode}
+          resetMedia={this.resetMedia}
         />
         <Modal />
       </div>

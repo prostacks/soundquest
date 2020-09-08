@@ -13,11 +13,14 @@ export default function FailureView(props) {
         className='btn btn-danger shadow-nome text-center mt-3'
         onClick={() => {
           props.changeText(props.normal);
-          document.querySelector(".mainText").classList.remove("fade");
+          if (props.mode === "singing" || props.mode === "listen") {
+            document.querySelector(".mainText").classList.remove("fade");
+          }
           props.showLoadingView();
           document.querySelector(".results").classList.add("d-none");
           document.querySelector(".failureView").classList.add("d-none");
           document.getElementById("audioPlayer").pause();
+          // props.resetMedia();
           props.changeState();
         }}
       >

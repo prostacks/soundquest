@@ -1,5 +1,4 @@
-import React from "react";
-import "./SingingResults.scss";
+import React, { Component } from "react";
 import CoverArt from "../../coverart_1.png";
 import confetti from "canvas-confetti";
 
@@ -17,7 +16,14 @@ const sucessMsgs = [
   "We knew we'd find it",
 ];
 
-class SingingResults extends React.Component {
+class LyricsQuestResults extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      success: false,
+    };
+  }
+
   componentDidUpdate() {
     if (document.querySelector(".carousel-item")) {
       document.querySelector(".carousel-item").classList.add("active");
@@ -34,13 +40,13 @@ class SingingResults extends React.Component {
     }
   }
 
-  success() {
-    let matchHeader = document.querySelectorAll(".matchHeader");
-    matchHeader.forEach((header) => {
-      header.textContent = this.props.randomMsg(sucessMsgs);
-    });
-  }
-
+  header = () => {
+    if (this.state.success === true) {
+      return this.props.randomMsg(sucessMsgs);
+    } else {
+      return this.props.randomMsg(guessMsgs);
+    }
+  };
   render() {
     return (
       <div className='singingResults container text-center mt-3 d-none col-md-6 mx-auto'>
@@ -65,9 +71,7 @@ class SingingResults extends React.Component {
 
               return (
                 <div key={index} className='carousel-item'>
-                  <h3 className='matchHeader text-light'>
-                    {this.props.randomMsg(guessMsgs)}
-                  </h3>
+                  <h3 className='matchHeader text-light'>{this.header()}</h3>
                   <span className='matchScore text-light'>{`${item.score}% Match`}</span>
                   <div className='card mt-3 album-card w-75 mx-auto'>
                     <img
@@ -75,9 +79,20 @@ class SingingResults extends React.Component {
                       alt={item.title}
                       className='card-img-top cover-art'
                     ></img>
-                    <div className='card-body'>
-                      <h5 className='card-title song'>{item.title}</h5>
-                      <h6 className='card-subtitle artist mb-2'>
+                    <div
+                      className='card-body'
+                      style={{ backgroundColor: item.cardBg }}
+                    >
+                      <h5
+                        className='card-title song'
+                        style={{ color: item.titleColor }}
+                      >
+                        {item.title}
+                      </h5>
+                      <h6
+                        className='card-subtitle artist mb-2'
+                        style={{ color: item.artistColor }}
+                      >
                         {item.artist}
                       </h6>
                     </div>
@@ -97,7 +112,7 @@ class SingingResults extends React.Component {
                           .forEach((matchBtn) => {
                             matchBtn.classList.add("d-none");
                           });
-                        this.success();
+                        this.setState({ success: true });
 
                         let duration = 5 * 1000;
                         let animationEnd = Date.now() + duration;
@@ -180,6 +195,7 @@ class SingingResults extends React.Component {
             document.querySelector(".search-again").classList.add("d-none");
             document.getElementById("audioPlayer").pause();
             this.props.changeState();
+            this.setState({ success: false });
           }}
         >
           Search Again
@@ -189,4 +205,4 @@ class SingingResults extends React.Component {
   }
 }
 
-export default SingingResults;
+export default LyricsQuestResults;

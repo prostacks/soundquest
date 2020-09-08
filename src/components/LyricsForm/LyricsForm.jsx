@@ -9,11 +9,7 @@ const LyricsForm = (props) => {
       >
         Please enter at least 10 valid characters to perform search!
       </div>
-      <form
-        className='col-md-6 mx-auto mt-2'
-        // method='POST'
-        // action='https://api.audd.io/findLyrics/'
-      >
+      <form className='col-md-6 mx-auto mt-2'>
         <div className='form-group'>
           <label className='text-light' htmlFor='textArea'>
             Get matches to song info by typing in a few lyrics

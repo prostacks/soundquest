@@ -1,10 +1,16 @@
 import React from "react";
 
-const QuestForm = () => {
+const QuestForm = (props) => {
   return (
     <div>
+      <div
+        className='alert alert-danger mt-3 col-md-6 mx-auto fade'
+        role='alert'
+      >
+        Please enter a valid Artist & Song Title!
+      </div>
       <form
-        className='col-md-6 mx-auto mt-5'
+        className='col-md-6 mx-auto mt-2'
         method='POST'
         action='https://api.audd.io/findLyrics/'
       >
@@ -14,7 +20,8 @@ const QuestForm = () => {
           </label>
           <input
             className='form-control'
-            id='artist'
+            required
+            id='artistName'
             placeholder='Artist Name'
             type='text'
           />
@@ -22,12 +29,29 @@ const QuestForm = () => {
         <div className='form-group'>
           <input
             className='form-control'
+            required
             type='text'
             placeholder='Song Title'
             id='songTitle'
           />
         </div>
-        <button type='submit' className='btn btn-primary'>
+        <button
+          type='submit'
+          onClick={(e) => {
+            e.preventDefault();
+            let artist = document.getElementById("artistName");
+            let title = document.getElementById("songTitle");
+            if (!artist.value || !title.value) {
+              props.showAlert();
+              return;
+            }
+            let data = `${artist.value} ${title.value}`;
+            props.handleData(data);
+            artist.value = "";
+            title.value = "";
+          }}
+          className='btn btn-primary'
+        >
           Get Song Info
         </button>
       </form>

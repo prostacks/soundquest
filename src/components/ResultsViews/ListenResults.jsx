@@ -31,16 +31,11 @@ export default function ListenResults(props) {
           className=''
           target='_blank'
           rel='noopener noreferrer'
-          href='https://music.apple.com/us/album/warriors/1440831203?i=1440831624'
+          href=' '
         >
           <img className=' apple' src={apple} alt='Apple Music Link' />
         </a>
-        <a
-          id='spotifyLink'
-          rel='noopener noreferrer'
-          target='_blank'
-          href='https://open.spotify.com/track/1lgN0A2Vki2FTON5PYq42m'
-        >
+        <a id='spotifyLink' rel='noopener noreferrer' target='_blank' href=' '>
           <div className='spotify-bg'>
             <img
               className=' spotify w-75'

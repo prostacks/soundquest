@@ -73,7 +73,7 @@ class LoadingView extends Component {
 
   gatherData = async (data) => {
     // Fetch API Keys from node server
-    let uri = "http://localhost:8080/getkeys";
+    let uri = "/getkeys";
     const response = await fetch(uri);
     const keys = await response.json();
     let auddKey = keys[0].audd;

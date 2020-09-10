@@ -20,7 +20,7 @@ function LandingPage(props) {
   const [ref3, inView3] = useInView(options);
 
   return (
-    <div className='landingContainer'>
+    <div className='landingContainer' id='page-top'>
       <div
         id='carouselExampleSlidesOnly'
         className='carousel slide homeCarousel'
@@ -49,17 +49,29 @@ function LandingPage(props) {
               S<i className='far fa-play-circle'></i>undQuest
             </h1>
           </header>
+          <a
+            className='text-light github-link text-center'
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://github.com/prostacks/soundquest'
+          >
+            <i aria-label='github link' className='fab fa-github fa-2x'></i>{" "}
+            <br />
+            View On Github
+          </a>
           <div className='jumbotron jumbotron-fluid mt-5'>
             <div className='container text-light col-md-8 '>
-              <h2 className='display-4'>Find the right vibe.</h2>
+              <h2 className='display-4'>
+                Find the right <span className='text-warning'>vibe</span>.
+              </h2>
               <p className='lead'>
                 SoundQuest is a music recognition app powered by the AudD API.
               </p>
               <hr className='my-4 bg-light'></hr>
               <p>
                 With four different search modes and an extensive database of
-                over 50 Million songs, you'll be able to find the track you're
-                looking for in seconds.
+                over 50 Million songs, you'll easily be able to find the track
+                you're looking for in seconds.
               </p>
               <div className='btnWrap'>
                 <Modal btnMode={btnMode} />
@@ -75,7 +87,7 @@ function LandingPage(props) {
           </div>
         </div>
         <section className='learnMore container text-center text-light py-5'>
-          <h3 id='learnMore' className='text-center mb-4'>
+          <h3 id='learnMore' className='text-center mb-5'>
             Features
           </h3>
           <div ref={ref} className='features item-1 row'>
@@ -180,7 +192,7 @@ function LandingPage(props) {
               />
             )}
           </div>
-          <a href='#logo ' className='btn btn-link'>
+          <a href='#page-top ' className='btn btn-link'>
             Back To Top
           </a>
         </section>

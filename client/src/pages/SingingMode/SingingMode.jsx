@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../main/main.scss";
+import "../ListenMode/main.scss";
 import RecordBtn from "../../components/Record-Btn/RecordBtn";
 import LoadingView from "../../components/LoadingView/LoadingView";
 import { withRouter } from "react-router-dom";

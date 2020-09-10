@@ -20,6 +20,7 @@ header {
   position: relative;
   .overlay {
     position: absolute;
+    overflow-x: hidden;
     top: 0;
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -85,4 +86,35 @@ header {
 
 .home-images {
   object-fit: cover;
+}
+
+.github-link {
+  position: absolute;
+  top: -3rem;
+  right: -4.4rem;
+  transform: rotate(40deg);
+  background-color: #333;
+  border-radius: 0 !important;
+  padding: 3.5rem 3rem 0.5rem 3.5rem;
+  font-size: small;
+  box-shadow: 5px 5px 5px #111;
+}
+.github-link:hover {
+  background-color: #0460c4;
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 300;
+    margin-top: 2rem;
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 4px 4px 5px rgba($color: #333333e0, $alpha: 1);
+    }
+    i {
+      font-size: 0.7em;
+    }
+  }
 }

@@ -221,7 +221,6 @@ class LoadingView extends Component {
   };
 
   fetchCoverArt = (artist, title, listItem, key) => {
-    // let key = "0410f71d8ac85faf3bbd6d1a58970aaa";
     let newArtist = artist.replace(/ /g, "%20");
     let newTitle = title.replace(/ /g, "%20");
 

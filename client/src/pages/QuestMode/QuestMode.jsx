@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../main/main.scss";
+import "../ListenMode/main.scss";
 import QuestForm from "../../components/QuestForm/QuestForm";
 import LoadingView from "../../components/LoadingView/LoadingView";
 import { withRouter } from "react-router-dom";

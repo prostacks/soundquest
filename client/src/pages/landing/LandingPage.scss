@@ -1,0 +1,85 @@
+html {
+  scroll-behavior: smooth;
+}
+
+header {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  h1 {
+    font-size: 3.5rem;
+    text-shadow: 4px 4px 5px rgba($color: #333333e0, $alpha: 1);
+  }
+  i {
+    font-size: 0.7em;
+  }
+}
+.landing-wrapper {
+  min-height: 100vh;
+}
+.landingContainer {
+  position: relative;
+  .overlay {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    min-height: 100vh;
+    .jumbotron {
+      background-color: transparent;
+    }
+    a {
+      border-radius: 35px;
+    }
+  }
+}
+.homeCarousel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.carousel-home-item {
+  .images {
+    min-height: 100vh;
+  }
+}
+
+.features {
+  margin-bottom: 5rem;
+}
+
+.collage1 {
+  background: url("../../album_collage1.jpg") no-repeat center center/cover;
+}
+.collage2 {
+  background: url("../../album_collage2.jpg") no-repeat center center/cover;
+}
+.collage3 {
+  background: url("../../album_collage3.jpg") no-repeat center center/cover;
+}
+
+.left {
+  transform: translateX(-150px);
+  opacity: 0;
+  transition: all ease 0.5s;
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all ease 0.5s;
+  }
+}
+
+.right {
+  transform: translateX(150px);
+  opacity: 0;
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all ease 0.5s;
+  }
+}
+
+.home-images {
+  object-fit: cover;
+}

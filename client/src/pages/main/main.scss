@@ -1,0 +1,71 @@
+header {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  h1 {
+    font-size: 3.5rem;
+    text-shadow: 4px 4px 5px rgba($color: #333333e0, $alpha: 1);
+    cursor: pointer;
+  }
+  i {
+    font-size: 0.7em;
+  }
+}
+
+.wrapper {
+  margin-top: 4rem;
+}
+
+.helpText {
+  &.fade {
+    animation: fading 1s ease infinite;
+  }
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.bg-gradient {
+  background: linear-gradient(-45deg, #c33764, #1d2671, #c33764);
+  background-size: 400% 400%;
+  animation: gradient 25s ease-in-out infinite;
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 7rem;
+  padding-top: 2rem;
+
+  &.singingMode {
+    background: radial-gradient(#8360c3, #2ebf91);
+    background-size: 350% 350%;
+  }
+  &.lyricsMode {
+    background: radial-gradient(#283c86, #45a247);
+    background-size: 400% 400%;
+  }
+  &.questMode {
+    background: linear-gradient(-45deg, #b92b27, #1565c0, #b92b27);
+    background-size: 400% 400%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

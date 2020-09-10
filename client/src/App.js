@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import Main from "./pages/main/main";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import ListenMode from "./pages/ListenMode/ListenMode";
 import SingingMode from "./pages/SingingMode/SingingMode";
 import LyricsMode from "./pages/LyricsMode/LyricsMode";
 import QuestMode from "./pages/QuestMode/QuestMode";
@@ -13,7 +13,7 @@ class App extends React.Component {
       <Router>
         <div className='App'>
           <Route exact path='/' component={LandingPage} />
-          <Route exact path='/ListenMode/' component={Main} />
+          <Route exact path='/ListenMode/' component={ListenMode} />
           <Route exact path='/SingingMode/' component={SingingMode} />
           <Route exact path='/LyricsMode/' component={LyricsMode} />
           <Route exact path='/QuestMode/' component={QuestMode} />

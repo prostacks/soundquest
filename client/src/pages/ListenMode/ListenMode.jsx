@@ -4,7 +4,7 @@ import RecordBtn from "../../components/Record-Btn/RecordBtn";
 import LoadingView from "../../components/LoadingView/LoadingView";
 import { withRouter } from "react-router-dom";
 
-class Main extends Component {
+class ListenMode extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,4 +86,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(Main);
+export default withRouter(ListenMode);

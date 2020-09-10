@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Modal from "../../components/modal/modal";
 import "./LandingPage.scss";
 import { withRouter } from "react-router-dom";
-import FeaturePic1 from "../../homepage/feature1.jpg";
-import FeaturePic2 from "../../homepage/feature2.jpg";
-import FeaturePic3 from "../../homepage/feature3.jpg";
+import FeaturePic1 from "../../img/homepage/feature1.jpg";
+import FeaturePic2 from "../../img/homepage/feature2.jpg";
+import FeaturePic3 from "../../img/homepage/feature3.jpg";
 import { useInView } from "react-intersection-observer";
 
 function LandingPage(props) {

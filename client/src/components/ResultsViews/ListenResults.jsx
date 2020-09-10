@@ -1,6 +1,6 @@
 import React from "react";
-import apple from "../../Web_SVG/US-UK_Apple_Music_Badge_RGB.svg";
-import spotfiy from "../../Spotify_Logo_CMYK_Green.png";
+import apple from "../../img/Web_SVG/US-UK_Apple_Music_Badge_RGB.svg";
+import spotfiy from "../../img/Spotify_Logo_CMYK_Green.png";
 import "../LoadingView/LoadingView.scss";
 
 export default function ListenResults(props) {

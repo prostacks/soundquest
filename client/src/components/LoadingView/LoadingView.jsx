@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./LoadingView.scss";
 import Modal from "../modal/modal";
 import ListenResults from "../ResultsViews/ListenResults";
-import CoverArt from "../../coverart_1.png";
+import CoverArt from "../../img/coverart_1.png";
 import FailureView from "../FailureView/FailureView";
 import Results from "../ResultsViews/Results";
 

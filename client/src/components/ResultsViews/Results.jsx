@@ -1,9 +1,9 @@
 import React from "react";
 import "./Results.scss";
-import CoverArt from "../../coverart_1.png";
+import CoverArt from "../../img/coverart_1.png";
 import confetti from "canvas-confetti";
-import Soundcloud from "../../SoundCloud-Orange-Badge.png";
-import Spotify from "../../Spotify_Logo_CMYK_Green.png";
+import Soundcloud from "../../img/SoundCloud-Orange-Badge.png";
+import Spotify from "../../img/Spotify_Logo_CMYK_Green.png";
 
 const guessMsgs = [
   "Sounds right?",

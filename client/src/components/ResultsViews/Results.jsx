@@ -4,6 +4,7 @@ import CoverArt from "../../img/coverart_1.png";
 import confetti from "canvas-confetti";
 import Soundcloud from "../../img/SoundCloud-Orange-Badge.png";
 import Spotify from "../../img/Spotify_Logo_CMYK_Green.png";
+import { withRouter } from "react-router-dom";
 
 const guessMsgs = [
   "Sounds right?",
@@ -704,6 +705,16 @@ class Results extends React.Component {
               document.getElementById("audioPlayer").pause();
               this.props.changeState();
               this.setDefaults();
+              if (
+                navigator.userAgent.includes("Safari") &&
+                !navigator.userAgent.includes("Chrome") &&
+                this.props.mode === "singing"
+              ) {
+                this.props.history.push("/");
+                setTimeout(() => {
+                  this.props.history.push("/SingingMode/");
+                }, 0);
+              }
             }}
           >
             Search Again
@@ -714,4 +725,4 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+export default withRouter(Results);

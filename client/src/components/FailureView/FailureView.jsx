@@ -1,7 +1,8 @@
 import React from "react";
 import "../LoadingView/LoadingView.scss";
+import { withRouter } from "react-router-dom";
 
-export default function FailureView(props) {
+function FailureView(props) {
   return (
     <div className='failureView text-center d-none mt-5 text-light'>
       <h2 className='failureMsg'> </h2>
@@ -20,8 +21,25 @@ export default function FailureView(props) {
           document.querySelector(".results").classList.add("d-none");
           document.querySelector(".failureView").classList.add("d-none");
           document.getElementById("audioPlayer").pause();
-          // props.resetMedia();
           props.changeState();
+          if (
+            navigator.userAgent.includes("Safari") &&
+            !navigator.userAgent.includes("Chrome")
+          ) {
+            if (props.mode === "singing") {
+              props.history.push("/");
+              setTimeout(() => {
+                props.history.push("/SingingMode/");
+              }, 0);
+            }
+
+            if (props.mode === "listen") {
+              props.history.push("/");
+              setTimeout(() => {
+                props.history.push("/ListenMode/");
+              }, 0);
+            }
+          }
         }}
       >
         Try Again
@@ -29,3 +47,5 @@ export default function FailureView(props) {
     </div>
   );
 }
+
+export default withRouter(FailureView);

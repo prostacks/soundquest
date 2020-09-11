@@ -2,8 +2,9 @@ import React from "react";
 import apple from "../../img/Web_SVG/US-UK_Apple_Music_Badge_RGB.svg";
 import spotfiy from "../../img/Spotify_Logo_CMYK_Green.png";
 import "../LoadingView/LoadingView.scss";
+import { withRouter } from "react-router-dom";
 
-export default function ListenResults(props) {
+function ListenResults(props) {
   return (
     <div className='results d-none container text-center col-md-6 mx-auto'>
       <div className='card album-card w-75 mx-auto mt-5'>
@@ -62,6 +63,15 @@ export default function ListenResults(props) {
           props.showLoadingView();
           document.querySelector(".results").classList.add("d-none");
           document.getElementById("audioPlayer").pause();
+          if (
+            navigator.userAgent.includes("Safari") &&
+            !navigator.userAgent.includes("Chrome")
+          ) {
+            props.history.push("/");
+            setTimeout(() => {
+              props.history.push("/ListenMode/");
+            }, 0);
+          }
         }}
       >
         Search Again
@@ -69,3 +79,5 @@ export default function ListenResults(props) {
     </div>
   );
 }
+
+export default withRouter(ListenResults);

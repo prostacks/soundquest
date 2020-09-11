@@ -98,13 +98,17 @@ class Results extends React.Component {
                 return (
                   <div key={item.id} className='carousel-item active'>
                     {this.state.success ? (
-                      <h3 className='matchHeader text-light'>
-                        {this.props.randomMsg(sucessMsgs)}
-                      </h3>
+                      <div className='container'>
+                        <h3 className='matchHeader text-light'>
+                          {this.props.randomMsg(sucessMsgs)}
+                        </h3>
+                      </div>
                     ) : (
-                      <h3 className='matchHeader text-light'>
-                        {this.props.randomMsg(guessMsgs)}
-                      </h3>
+                      <div className='container'>
+                        <h3 className='matchHeader text-light'>
+                          {this.props.randomMsg(guessMsgs)}
+                        </h3>
+                      </div>
                     )}
 
                     {this.props.mode === "singing" ? (
@@ -394,13 +398,17 @@ class Results extends React.Component {
                 return (
                   <div key={item.id} className='carousel-item'>
                     {this.state.success ? (
-                      <h3 className='matchHeader text-light'>
-                        {this.props.randomMsg(sucessMsgs)}
-                      </h3>
+                      <div className='container'>
+                        <h3 className='matchHeader text-light'>
+                          {this.props.randomMsg(sucessMsgs)}
+                        </h3>
+                      </div>
                     ) : (
-                      <h3 className='matchHeader text-light'>
-                        {this.props.randomMsg(guessMsgs)}
-                      </h3>
+                      <div className='container'>
+                        <h3 className='matchHeader text-light'>
+                          {this.props.randomMsg(guessMsgs)}
+                        </h3>
+                      </div>
                     )}
                     {this.props.mode === "singing" ? (
                       <span className='matchScore text-light'>{`${item.score}% Match`}</span>

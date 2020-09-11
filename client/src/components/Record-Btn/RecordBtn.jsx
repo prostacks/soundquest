@@ -6,6 +6,9 @@ let chunks = [];
 
 function RecordBtn(props) {
   const record = (e) => {
+    if (props.mediaDevices === false) {
+      return;
+    }
     props.recorder.start();
     console.log("recording...");
     e.target.classList.add("pulse");
@@ -15,6 +18,9 @@ function RecordBtn(props) {
   };
 
   const stopRecording = (e) => {
+    if (props.mediaDevices === false) {
+      return;
+    }
     props.recorder.stop();
     console.log("recording stopped");
     e.target.classList.remove("pulse");

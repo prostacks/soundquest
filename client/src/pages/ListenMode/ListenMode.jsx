@@ -3,6 +3,7 @@ import "./main.scss";
 import RecordBtn from "../../components/Record-Btn/RecordBtn";
 import LoadingView from "../../components/LoadingView/LoadingView";
 import { withRouter } from "react-router-dom";
+import MediaRecorderPDF from "../../media_recorder_for_ios.pdf";
 
 class ListenMode extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class ListenMode extends Component {
       mode: "",
       stage: "",
       recorder: null,
+      iOS: "",
+      mediaDevices: false,
     };
   }
   componentDidMount() {
@@ -27,12 +30,24 @@ class ListenMode extends Component {
     };
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-        this.setState({ recorder: new MediaRecorder(stream) });
+        this.setState({
+          recorder: new MediaRecorder(stream),
+          mediaDevices: true,
+        });
       });
 
       console.log("getUserMedia supported");
     } else {
       console.log("getUserMedia not supported");
+      this.setState({ mediaDevices: false });
+      if (navigator.userAgent.includes("CriOS")) {
+        this.setState({ iOS: "chrome" });
+      } else if (
+        navigator.userAgent.includes("Safari") &&
+        !navigator.userAgent.includes("Chrome")
+      ) {
+        this.setState({ iOS: "safari" });
+      }
     }
   }
 
@@ -72,6 +87,36 @@ class ListenMode extends Component {
             S<i className='far fa-play-circle d-inline'></i>undQuest
           </h1>
         </header>
+        {this.state.iOS === "safari" ? (
+          <div className='alert alert-danger' role='alert'>
+            Are you using an iOS device?{" "}
+            <a
+              href={MediaRecorderPDF}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='alert-link'
+            >
+              Click here
+            </a>{" "}
+            for instructions on how to enable the 'Media Recorder' feature for
+            your device.
+          </div>
+        ) : null}
+        {this.state.iOS === "chrome" ? (
+          <div className='alert alert-danger' role='alert'>
+            Are you using an iOS device? Chrome browser is not supported via
+            iOS. You must use Safari and enable the safari{" "}
+            <a
+              href={MediaRecorderPDF}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='alert-link'
+            >
+              Media Recorder
+            </a>{" "}
+            in your device settings for app to work properly.
+          </div>
+        ) : null}
         <div className='wrapper'>
           <h2 className='text-info text-center'>
             <i className='fas fa-assistive-listening-systems'></i> Listen Mode
@@ -82,6 +127,7 @@ class ListenMode extends Component {
             recording={this.state.text.recording}
             hideModal={this.hideModal}
             recorder={this.state.recorder}
+            mediaDevices={this.state.mediaDevices}
           />
           <span className='d-block text-center text-light mt-5 helpText mainText'>
             {text.normal}

@@ -20,15 +20,15 @@ class ListenMode extends Component {
       recorder: null,
     };
   }
-  // componentDidMount() {
-  //   const constraints = {
-  //     audio: true,
-  //     video: false,
-  //   };
-  //   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-  //     this.setState({ recorder: new MediaRecorder(stream) });
-  //   });
-  // }
+  componentDidMount() {
+    const constraints = {
+      audio: true,
+      video: false,
+    };
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this.setState({ recorder: new MediaRecorder(stream) });
+    });
+  }
 
   changeState = () => {
     return this.setState({ stage: "normal" });

@@ -86,13 +86,13 @@ function LandingPage(props) {
             </div>
           </div>
         </div>
-        <section className='learnMore container text-center text-light py-5'>
+        <section className='learnMore container col-md-8  text-center text-light py-5'>
           <h3 id='learnMore' className='text-center mb-5'>
             Features
           </h3>
-          <div ref={ref} className='features item-1 row'>
+          <div ref={ref} className='features item-1'>
             {inView ? (
-              <div className='textContent offset-md-2 col-md-4 show left'>
+              <div className='textContent show left'>
                 <h4 className='text-primary'>Music Recognition</h4>
                 <p className='lead'>
                   Just heard a song on the radio or at a party? With SoundQuest
@@ -101,7 +101,7 @@ function LandingPage(props) {
                 </p>
               </div>
             ) : (
-              <div className='textContent offset-md-2 col-md-4 left'>
+              <div className='textContent left'>
                 <h4 className='text-primary'>Music Recognition</h4>
                 <p className='lead'>
                   Just heard a song on the radio or at a party? With SoundQuest
@@ -114,32 +114,19 @@ function LandingPage(props) {
               <img
                 src={FeaturePic1}
                 alt='party'
-                className='col-md-4 home-images right show '
+                className='home-images right show '
               />
             ) : (
               <img
                 src={FeaturePic1}
                 alt='party'
-                className='col-md-4 home-images right'
+                className='home-images right'
               />
             )}
           </div>
-          <div ref={ref2} className='features item-2 row'>
+          <div ref={ref2} className='features reverse item-2'>
             {inView2 ? (
-              <img
-                src={FeaturePic2}
-                alt='singing'
-                className='offset-md-2 col-md-4 home-images left show'
-              />
-            ) : (
-              <img
-                src={FeaturePic2}
-                alt='singing'
-                className='offset-md-2 home-images col-md-4 left'
-              />
-            )}
-            {inView2 ? (
-              <div className='textContent col-md-4 mt-2 right show'>
+              <div className='textContent right show'>
                 <h4 className='text-warning'>Vocal Recognition</h4>
                 <p className='lead'>
                   Got the melody of the song in your head? Use "Singing Mode" to
@@ -148,7 +135,7 @@ function LandingPage(props) {
                 </p>
               </div>
             ) : (
-              <div className='textContent col-md-4 mt-2 right'>
+              <div className='textContent right'>
                 <h4 className='text-warning'>Vocal Recognition</h4>
                 <p className='lead'>
                   Got the melody of the song in your head? Use "Singing Mode" to
@@ -157,10 +144,23 @@ function LandingPage(props) {
                 </p>
               </div>
             )}
+            {inView2 ? (
+              <img
+                src={FeaturePic2}
+                alt='singing'
+                className='home-images left show'
+              />
+            ) : (
+              <img
+                src={FeaturePic2}
+                alt='singing'
+                className='home-images left'
+              />
+            )}
           </div>
-          <div ref={ref3} className='features item-3 row'>
+          <div ref={ref3} className='features item-3'>
             {inView3 ? (
-              <div className='textContent offset-md-2 col-md-4 left show'>
+              <div className='textContent left show'>
                 <h4 className='text-info'>Music Library</h4>
                 <p className='lead'>
                   Use either "Quest" or "Lyrics" mode to search the database for
@@ -169,7 +169,7 @@ function LandingPage(props) {
                 </p>
               </div>
             ) : (
-              <div className='textContent offset-md-2 col-md-4 left'>
+              <div className='textContent left'>
                 <h4 className='text-info'>Music Library</h4>
                 <p className='lead'>
                   Use either "Quest" or "Lyrics" mode to search the database for
@@ -182,13 +182,13 @@ function LandingPage(props) {
               <img
                 src={FeaturePic3}
                 alt='search'
-                className='col-md-4 home-images right show'
+                className='home-images right show'
               />
             ) : (
               <img
                 src={FeaturePic3}
                 alt='search'
-                className='col-md-4 home-images right'
+                className='home-images right'
               />
             )}
           </div>

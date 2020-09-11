@@ -47,7 +47,15 @@ header {
 }
 
 .features {
-  margin-bottom: 5rem;
+  display: flex;
+  gap: 1.5rem;
+  margin: 4rem 0;
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+  .textContent {
+    align-self: center;
+  }
 }
 
 .collage1 {
@@ -86,6 +94,7 @@ header {
 
 .home-images {
   object-fit: cover;
+  width: 50%;
 }
 
 .github-link {
@@ -119,6 +128,12 @@ header {
   }
 
   .home-images {
-    object-fit: contain;
+    width: 100%;
+  }
+  .features {
+    flex-direction: column;
+    &.reverse {
+      flex-direction: column;
+    }
   }
 }

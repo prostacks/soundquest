@@ -33,7 +33,7 @@ const colorSets = [
   { cardBg: "#111111", title: "#FBFBF8", artist: "#696773" },
   { cardBg: "#54494B", title: "#91C7B1", artist: "#F1F7ED" },
   { cardBg: "#D8D2E1", title: "#A5243D", artist: "#6369D1" },
-  { cardBg: "#E5B181", title: "#DE6B48", artist: "#F4B9B2" },
+  { cardBg: "#E5B181", title: "#DE6B48", artist: "#8B0000" },
   { cardBg: "#033860", title: "#FFFFFF", artist: "#087CA7" },
 ];
 

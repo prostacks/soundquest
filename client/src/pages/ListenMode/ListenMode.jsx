@@ -17,7 +17,17 @@ class ListenMode extends Component {
       },
       mode: "",
       stage: "",
+      recorder: null,
     };
+  }
+  componentDidMount() {
+    const constraints = {
+      audio: true,
+      video: false,
+    };
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this.setState({ recorder: new MediaRecorder(stream) });
+    });
   }
 
   changeState = () => {
@@ -65,6 +75,7 @@ class ListenMode extends Component {
             changeText={this.changeText}
             recording={this.state.text.recording}
             hideModal={this.hideModal}
+            recorder={this.state.recorder}
           />
           <span className='d-block text-center text-light mt-5 helpText mainText'>
             {text.normal}

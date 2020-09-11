@@ -11,14 +11,25 @@ class SingingMode extends Component {
       info: {},
       text: {
         normal:
-          "Sing or hum the song between 5 and 15 seconds for optimal results",
+          "Press & hold the record button for 10 to 15 seconds while singing or humming the melody.",
         recording: "Recording vocal input...",
         fetching: "Indentifying audio data...",
       },
       mode: "",
       stage: "",
+      recorder: null,
     };
   }
+  componentDidMount() {
+    const constraints = {
+      audio: true,
+      video: false,
+    };
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this.setState({ recorder: new MediaRecorder(stream) });
+    });
+  }
+
   changeText = (stateString) => {
     document.querySelectorAll(".helpText").forEach((text) => {
       text.textContent = stateString;
@@ -63,6 +74,7 @@ class SingingMode extends Component {
             handleData={this.handleData}
             recording={this.state.text.recording}
             hideModal={this.hideModal}
+            recorder={this.state.recorder}
           />
           <span className='d-block text-center text-light mt-5 helpText mainText'>
             {this.state.text.normal}

@@ -154,6 +154,8 @@ class LoadingView extends Component {
     if (!result || result === "null") {
       failureMsg.textContent = this.randomMsg(failureMsgs);
       failuerView.classList.remove("d-none");
+      document.querySelector(".modeBtn").classList.remove("d-none");
+
       return;
     }
     document.querySelector(".results").classList.remove("d-none");
@@ -205,10 +207,12 @@ class LoadingView extends Component {
     if (!result || result === "null") {
       failureMsg.textContent = this.randomMsg(failureMsgs);
       failuerView.classList.remove("d-none");
+      document.querySelector(".modeBtn").classList.remove("d-none");
+
       return;
     }
     // Fetch API Keys from node server
-    let uri = "http://localhost:8080/getkeys";
+    let uri = "/getkeys";
     const response = await fetch(uri);
     const keys = await response.json();
     let lastFmKey = keys[0].lastfm;
@@ -308,10 +312,12 @@ class LoadingView extends Component {
     if (!result || result === "null") {
       failureMsg.textContent = this.randomMsg(failureMsgs);
       failuerView.classList.remove("d-none");
+      document.querySelector(".modeBtn").classList.remove("d-none");
+
       return;
     }
     // Fetch API Keys from node server
-    let uri = "http://localhost:8080/getkeys";
+    let uri = "/getkeys";
     const response = await fetch(uri);
     const keys = await response.json();
     let lastFmKey = keys[0].lastfm;
@@ -328,6 +334,7 @@ class LoadingView extends Component {
     const failuerView = document.querySelector(".failureView");
     failureMsg.textContent = this.randomMsg(failureMsgs);
     failuerView.classList.remove("d-none");
+    document.querySelector(".modeBtn").classList.remove("d-none");
   };
 
   render() {

@@ -14,7 +14,9 @@ header {
 .wrapper {
   margin-top: 4rem;
 }
-
+.alert-link {
+  text-decoration: underline;
+}
 .helpText {
   &.fade {
     animation: fading 1s ease infinite;

@@ -31,7 +31,7 @@ class SingingMode extends Component {
     if (
       navigator.mediaDevices &&
       navigator.mediaDevices.getUserMedia &&
-      MediaRecorder
+      window.MediaRecorder
     ) {
       navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         this.setState({
@@ -39,7 +39,6 @@ class SingingMode extends Component {
           mediaDevices: true,
         });
       });
-
       console.log("getUserMedia supported");
     } else {
       console.log("getUserMedia not supported");
@@ -91,33 +90,37 @@ class SingingMode extends Component {
           </h1>
         </header>
         {this.state.iOS === "safari" ? (
-          <div className='alert alert-danger' role='alert'>
-            Are you using an iOS device?{" "}
-            <a
-              href={MediaRecorderPDF}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='alert-link'
-            >
-              Click here
-            </a>{" "}
-            for instructions on how to enable the 'Media Recorder' feature for
-            your device.
+          <div className='container'>
+            <div className='alert alert-danger mx-auto col-md-6' role='alert'>
+              Are you using an iOS device?{" "}
+              <a
+                href={MediaRecorderPDF}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='alert-link'
+              >
+                Click here
+              </a>{" "}
+              for instructions on how to enable the 'Media Recorder' feature for
+              your device.
+            </div>
           </div>
         ) : null}
         {this.state.iOS === "chrome" ? (
-          <div className='alert alert-danger' role='alert'>
-            Are you using an iOS device? Chrome browser is not supported via
-            iOS. You must use Safari and enable the safari{" "}
-            <a
-              href={MediaRecorderPDF}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='alert-link'
-            >
-              Media Recorder
-            </a>{" "}
-            in your device settings for app to work properly.
+          <div className='container'>
+            <div className='alert alert-danger mx-auto col-md-6' role='alert'>
+              Are you using an iOS device? Chrome browser is not supported via
+              iOS. You must use Safari and enable the safari{" "}
+              <a
+                href={MediaRecorderPDF}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='alert-link'
+              >
+                Media Recorder
+              </a>{" "}
+              in your device settings for app to work properly.
+            </div>
           </div>
         ) : null}
         <div className='wrapper'>

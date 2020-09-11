@@ -68,7 +68,7 @@ class LoadingView extends Component {
   }
 
   randomMsg = (arr) => {
-    return arr[Math.round(Math.random() * (lodingMsgs.length - 1))];
+    return arr[Math.round(Math.random() * (arr.length - 1))];
   };
 
   gatherData = async (data) => {

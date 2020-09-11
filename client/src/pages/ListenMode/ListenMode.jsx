@@ -28,7 +28,11 @@ class ListenMode extends Component {
       audio: true,
       video: false,
     };
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    if (
+      navigator.mediaDevices &&
+      navigator.mediaDevices.getUserMedia &&
+      MediaRecorder
+    ) {
       navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         this.setState({
           recorder: new MediaRecorder(stream),

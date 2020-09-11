@@ -196,6 +196,25 @@ function LandingPage(props) {
             Back To Top
           </a>
         </section>
+        <footer className='text-light text-center py-4'>
+          Built by{" "}
+          <a
+            href='https://prostacks.io'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            ProStacks
+          </a>
+          . View more of my projects{" "}
+          <a
+            href='https://www.prostacks.io/projects.html'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            here
+          </a>
+          .
+        </footer>
       </div>
     </div>
   );

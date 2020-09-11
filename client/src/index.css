@@ -7,9 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* prevent callout to copy image, etc when tap to hold */
-  -webkit-touch-callout: none;
+  /* -webkit-touch-callout: none; */
   /* prevent copy paste, to allow, change 'none' to 'text' */
-  -webkit-user-select: none;
+  /* -webkit-user-select: none; */
 }
 
 code {

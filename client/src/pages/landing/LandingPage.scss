@@ -48,7 +48,7 @@ header {
 
 .features {
   display: flex;
-  gap: 1.5rem;
+  column-gap: 1.5rem;
   margin: 4rem 0;
   &.reverse {
     flex-direction: row-reverse;
@@ -95,6 +95,7 @@ header {
 .home-images {
   object-fit: cover;
   width: 50%;
+  height: 100%;
 }
 
 .github-link {

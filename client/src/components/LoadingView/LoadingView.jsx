@@ -77,7 +77,6 @@ class LoadingView extends Component {
     const response = await fetch(uri);
     const keys = await response.json();
     let auddKey = keys[0].audd;
-
     const formData = new FormData();
     formData.append("api_token", auddKey);
 

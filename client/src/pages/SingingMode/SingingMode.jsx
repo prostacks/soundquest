@@ -42,7 +42,6 @@ class SingingMode extends Component {
       console.log("getUserMedia supported");
     } else {
       console.log("getUserMedia not supported");
-      this.setState({ mediaDevices: false });
       if (navigator.userAgent.includes("CriOS")) {
         this.setState({ iOS: "chrome" });
       } else if (

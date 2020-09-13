@@ -8,8 +8,8 @@ const port = process.env.PORT || 8080;
 app.get("/getkeys", (req, res) => {
   const keys = [
     {
-      audd: "0251e1d511f58db75fa4b8642a65b65a",
-      lastfm: "0410f71d8ac85faf3bbd6d1a58970aaa",
+      audd: process.env.API_KEY1,
+      lastfm: process.env.API_KEY2,
     },
   ];
   res.json(keys);
